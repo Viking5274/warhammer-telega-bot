@@ -19,6 +19,5 @@ class MyBigLlama:
 
     def send_question(self, question: str):
 
-        print(question)
         response = self.query_engine.query(question)
         return response

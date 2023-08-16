@@ -4,7 +4,9 @@ from telethon import events
 from telethon.sync import TelegramClient
 from help import MyBigLlama
 from dotenv import load_dotenv
+import logging
 
+logging.basicConfig(filename='warhammer.log', encoding='utf-8', level=logging.DEBUG)
 load_dotenv()
 api_id = int(os.getenv("BOT_API_ID"))
 api_hash = os.getenv("BOT_API_HASH")
@@ -17,10 +19,11 @@ lama = MyBigLlama()
 
 @bot.on(events.NewMessage)
 async def my_event_handler(event):
-    print(f"SENDER IS: {event.sender.id, event.sender.username}")
+    logging.info(f"SENDER IS: {event.sender.id, event.sender.username}")
+    logging.info(event.raw_text)
     answer = lama.send_question(event.raw_text)
 
-    print(answer)
+    logging.info(answer)
     await event.reply(str(answer))
 
 
